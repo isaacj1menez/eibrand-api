@@ -21,9 +21,9 @@ export class User {
     @Column("varchar", { length: 50 })
     email: string = '';
 
-    @Column("timestamp", { default: getCurrentDate()})
+    @Column("timestamp", { default: () => "CURRENT_TIMESTAMP"})
     createdate: Date = new Date();
 
-    @Column("timestamp", { default: getCurrentDate()})
+    @Column("timestamp", { default: () => "CURRENT_TIMESTAMP"})
     lastupdatedate: Date = new Date();
 }
