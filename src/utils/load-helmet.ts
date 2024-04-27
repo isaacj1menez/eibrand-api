@@ -19,7 +19,8 @@ export const loadHelmet = (app: express.Application) => {
             blockAllMixedContent: [],
             fontSrc: ["'self'", 'https:', 'data:'],
             frameAncestors: ["'self'"],
-            imgSrc: ["'self'", 'data:'],
+            imgSrc: ["'self'", 'raw.githubusercontent.com', 'data:'],
+            styleSrc: ["'self'", 'unpkg.com'],
             objectSrc: ["'none'"],
             scriptSrc: [
               "'self'",
@@ -27,6 +28,7 @@ export const loadHelmet = (app: express.Application) => {
               "'unsafe-inline'",
               /** @by-us - adds graphiql support over helmet's default CSP */
               "'unsafe-eval'",
+              'unpkg.com',
             ],
             upgradeInsecureRequests: [],
           },

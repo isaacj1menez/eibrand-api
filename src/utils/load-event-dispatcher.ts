@@ -1,4 +1,4 @@
-import { appConfig } from '@base/config/app';
+import { appConfig } from '../config/app';
 import { Glob } from 'glob';
 
 export const loadEventDispatcher = async () => {

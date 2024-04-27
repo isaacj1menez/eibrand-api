@@ -1,4 +1,3 @@
-import { getCurrentDate } from "@base/utils/dates-manager";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
 
 @Entity()
