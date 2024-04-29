@@ -17,7 +17,7 @@ export class UserController {
 
     @Get()
     public async getAll(@QueryParams() query: GetUsersQuery) {
-        const data = await this.userService.getAll(query.offset, query.limit);
+        const data = await this.userService.getAll(query.page, query.limit);
         return createCommonResponse(true, 200, 'OK', data);
     }
 

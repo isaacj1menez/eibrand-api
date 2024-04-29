@@ -1,9 +1,11 @@
-import { IsPositive } from 'class-validator';
+import { IsPositive, IsOptional } from 'class-validator';
 
 export class GetUsersQuery {
     @IsPositive()
-    limit?: number;
+    @IsOptional()
+    page: number;
 
     @IsPositive()
-    offset?: number;
+    @IsOptional()
+    limit: number;
 }

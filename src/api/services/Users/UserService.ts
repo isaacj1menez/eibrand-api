@@ -7,16 +7,28 @@ import { Service } from "typedi";
 export class UserService {
     constructor(@EventDispatcher() private eventDispatcher: EventDispatcherInterface) { }
 
-    public getAll = async (offset?: number, limit?: number) => {
-        const [entries, data] = await Promise.all([
-            await UserRepository.count(),
-            await UserRepository.find({
-                skip: offset,
-                take: limit
-            })
-        ]);
-        const users = data.map(u => { const { password, ...user } = u; return user });
-        return { entries, users }
+    public getAll = async (page: number = 1, limit: number = 10, retrieveAll: boolean = false) => {
+        if (retrieveAll) {
+            const data = await UserRepository.find();
+            const entries = data.length;
+            const users = data.map(u => { const { password, ...user } = u; return user });
+            return { entries, users };
+        } else {
+            const [totalEntries, data] = await Promise.all([
+                UserRepository.count(),
+                UserRepository.find({
+                    skip: (page - 1) * limit,
+                    take: limit
+                })
+            ]);
+            const entries = totalEntries;
+            const users = data.map(u => { const { password, ...user } = u; return user });
+            
+            const currentPage = page;
+            const totalPages = Math.ceil(totalEntries / limit);
+    
+            return { entries, users, currentPage, totalPages };
+        }
     }
 
     public create = async (data: object) => {
